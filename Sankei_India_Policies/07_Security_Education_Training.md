@@ -22,10 +22,10 @@ All employees, contractors, and third parties with access to Sankei India system
 
 ## 3. TRAINING TYPES & FREQUENCY
 
-- Mandatory Security Awareness e-learning: Annual (all employees)
-- Role-based training: Onboarding and annual refresh (IT, Dev, Admin)
-- Incident Response Tabletop Exercises: Semi-Annual (CSIRT)
-- Phishing simulations: Quarterly
+- Mandatory Security Awareness e-learning: Annual (all employees) — include AD password hygiene and phishing reporting steps
+- Role-based training: Onboarding and annual refresh for IT staff (AD administration, Sophos console operations, backup administration)
+- Incident Response Tabletop Exercises: Semi-Annual (CSIRT) — include scenarios: Sophos-detected malware, AD compromise, public web server defacement
+- Phishing simulations: Quarterly — target user base of ~90 endpoints
 - Vendor security briefing: Annual
 
 ---
@@ -33,11 +33,11 @@ All employees, contractors, and third parties with access to Sankei India system
 ## 4. TRAINING TOPICS
 
 - Password hygiene and MFA
-- Phishing awareness and reporting
-- Data classification and handling
+- Phishing awareness and reporting via Sophos/phishing report channels
+- AD account/security best practices (service account handling, privileged account management)
 - Secure remote access and VPN usage
 - Incident reporting procedures
-- Secure development practices for web app teams
+- Basic secure maintenance for endpoints (patching, Sophos alerts)
 
 ---
 

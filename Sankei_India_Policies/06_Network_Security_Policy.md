@@ -16,7 +16,7 @@ Define required network security controls to protect Sankei India's network arch
 
 ## 2. SCOPE
 
-Applies to all network components: Sophos firewall, managed switches, fiber primary link, RF secondary link, DSL drop, and all connected servers and endpoints.
+Applies to all network components: Sophos firewall, Cisco managed switches, fiber primary link, RF secondary link, DSL drop, and all connected servers and endpoints (approx. 90 endpoints).
 
 ---
 
@@ -24,9 +24,10 @@ Applies to all network components: Sophos firewall, managed switches, fiber prim
 
 - Primary uplink: Fiber
 - Secondary uplink: RF
-- Edge security: Sophos border device
-- Internal switching: Managed switches with VLAN segmentation
+- Edge security: Sophos border device and Sophos endpoint agents on endpoints
+- Internal switching: Cisco managed switches with VLAN segmentation
 - External connectivity: DHCP-based with DSL drop as needed
+- Public-facing services hosted on a single web server (sankei-india.com) located in the DMZ segment behind Sophos
 
 ---
 
@@ -34,23 +35,23 @@ Applies to all network components: Sophos firewall, managed switches, fiber prim
 
 - Sophos firewall must be configured with:
   - Deny-by-default rule base
-  - Explicit allow rules for required services (web, management via restricted IPs)
+  - Explicit allow rules for required services (HTTP/S to public web server, management via restricted admin IPs)
   - IDS/IPS enabled
   - Geo-blocking where applicable
-  - Regular signature updates
-- Administrative access restricted to management VLAN and trusted admin IPs; MFA required.
+  - Regular signature and engine updates via Sophos Central
+- Administrative access restricted to management VLAN and trusted admin IPs; MFA required for Sophos admin access.
 
 ---
 
 ## 5. NETWORK SEGMENTATION
 
 - Separate VLANs for:
-  - Servers (production)
+  - Servers (production + DMZ for web server)
   - Management
-  - User workstations
+  - User workstations (~90 endpoints)
   - Guest/IoT
   - Backup infrastructure
-- Inter-VLAN traffic filtered via firewall policies.
+- Inter-VLAN traffic filtered via Sophos firewall policies.
 
 ---
 
@@ -71,9 +72,9 @@ Applies to all network components: Sophos firewall, managed switches, fiber prim
 
 ## 8. DEVICE HARDENING
 
-- Managed switches hardened: disable unused ports, enable port-security, BPDU Guard, and management ACLs.
+- Cisco managed switches hardened: disable unused ports, enable port-security, BPDU Guard, and management ACLs.
 - Change default credentials; apply latest firmware patches.
-- Configuration backups stored in Server Closet backup location.
+- Backup switch and Sophos configurations to Server Closet.
 
 ---
 
@@ -87,7 +88,7 @@ Applies to all network components: Sophos firewall, managed switches, fiber prim
 
 ## 10. REDUNDANCY & FAILOVER
 
-- Primary Fiber with RF as secondary uplink; configure routing to failover seamlessly.
+- Primary Fiber with RF as secondary uplink; configure routing and NAT failover. Test failover to ensure public web availability.
 - Document failover procedures and test failover at least annually.
 
 ---

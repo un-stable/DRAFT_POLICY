@@ -87,11 +87,11 @@ This document covers:
 
 | Responsibility | Description |
 |----------------|-------------|
-| Server Administration | Manage 3 dedicated servers (App, File, Backup) |
-| Network Management | Maintain Sophos firewall, managed switches, connectivity |
-| System Maintenance | Patch management, updates, system hardening |
-| Backup Operations | Execute and verify backup procedures |
-| User Support | Handle access requests and technical support |
+| Server Administration | Manage 3 dedicated physical servers (Application, File, Backup); no virtualization in use |
+| Network Management | Maintain Sophos firewall, Cisco managed switches, fiber/RF connectivity, and DSL drop |
+| System Maintenance | Patch management for Windows servers and endpoints, AD maintenance, system hardening |
+| Backup Operations | Execute and verify folder-based backups for sankei-india.com, AD System State backups, and Server Closet media |
+| User Support | Handle access requests and technical support for ~90 PCs/endpoints |
 
 ### 4.4 Security Operations
 
@@ -167,9 +167,9 @@ This document covers:
 | Role | Primary | Backup | Contact |
 |------|---------|--------|---------|
 | CSIRT Commander | CISO/IT Head | Operations Manager | [Phone/Email] |
-| Technical Lead | Sr. IT Admin | Jr. IT Admin | [Phone/Email] |
+| Technical Lead | Senior IT Administrator (AD/Sophos lead) | Jr. IT Admin | [Phone/Email] |
 | Communications Lead | HR/Admin Head | CISO/IT Head | [Phone/Email] |
-| Recovery Lead | IT Operations | Vendor Support | [Phone/Email] |
+| Recovery Lead | IT Operations (Backup Admin) | Vendor Support (Sophos/ISP) | [Phone/Email] |
 
 ### 6.3 Incident Severity Classification
 

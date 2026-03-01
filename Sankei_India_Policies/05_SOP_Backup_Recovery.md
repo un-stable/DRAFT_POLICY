@@ -16,13 +16,13 @@ Define backup and recovery procedures for critical systems and data to ensure bu
 
 ## 2. SCOPE
 
-Covers backups for the File Server, Web Application data, and configuration backups for servers and network devices. Applies to folder-based backups located at /sankei-india.com/Backup/user/sankei-india.com and physical backups in the Server Closet.
+Covers backups for the File Server, Web Application data, Active Directory system state, and configuration backups for servers and network devices. Applies to folder-based backups located at /sankei-india.com/Backup/user/sankei-india.com and physical backups in the Server Closet.
 
 ---
 
 ## 3. BACKUP STRATEGY
 
-- Primary backups are taken on-site to the Backup Server.
+- Primary backups are taken on-site to the Backup Server; AD System State backups executed on domain controllers and retained per retention schedule.
 - Secondary (offline/air-gapped) copies stored in Server Closet media.
 - Retention: Daily backups for 30 days, weekly backups for 12 weeks, monthly backups for 12 months.
 - Backup types: Full weekly, incremental daily.
@@ -51,17 +51,18 @@ Covers backups for the File Server, Web Application data, and configuration back
 ## 6. RESTORATION PROCEDURE
 
 1. Verify restoration request and obtain approval from IT Head.
-2. Identify appropriate backup set and validate integrity (checksum, logs).
-3. Perform restore on isolated test environment where feasible.
-4. Validate data integrity and application functionality.
-5. Schedule cutover and restore to production during maintenance window.
-6. Document restore steps and update incident record if restoration is due to an incident.
+2. For AD restores, follow AD System State restoration procedures: seize FSMO roles if required and follow Microsoft best practices to avoid USN rollback.
+3. Identify appropriate backup set and validate integrity (checksum, logs).
+4. Perform restore on isolated test environment where feasible before restoring production AD or web server.
+5. Validate data integrity and application functionality.
+6. Schedule cutover and restore to production during maintenance window.
+7. Document restore steps and update incident record if restoration is due to an incident.
 
 ---
 
 ## 7. TESTING
 
-- Quarterly restore tests for critical systems.
+- Quarterly restore tests for critical systems, with special emphasis on AD System State restore and public web server priority restores.
 - Record duration (MTTR) and issues discovered during tests.
 - Update restoration procedures based on test outcomes.
 

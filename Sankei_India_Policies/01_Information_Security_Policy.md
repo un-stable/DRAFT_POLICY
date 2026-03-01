@@ -21,11 +21,13 @@ This policy applies to:
 - All employees, contractors, and third-party personnel
 - All information systems, networks, and data
 - All physical and virtual infrastructure including:
-  - 3 Dedicated Servers (Application, File Server, Backup)
-  - Sophos Firewall/Border Security
-  - Managed Network Switches
+  - 3 Dedicated physical Servers (Application, File Server, Backup) — no virtualization/VMs in use
+  - Sophos Firewall/Border Security and Sophos Endpoint AV protecting ~90 endpoints
+  - Cisco managed network switches
+  - Active Directory (AD) domain for authentication and user/group management
   - Fiber (Primary) and RF (Secondary) connectivity
-  - Web-based applications hosted on sankei-india.com
+  - Web-based application hosted as 1 public web server (sankei-india.com)
+  - No VDI environment in use
 
 ---
 
@@ -71,26 +73,27 @@ This organization maintains compliance with:
 ## 6. SECURITY CONTROLS
 
 ### 6.1 Network Security
-- **Perimeter Security:** Sophos firewall at network border
-- **Network Segmentation:** Managed switches with VLAN configuration
+- **Perimeter Security:** Sophos firewall at network border and Sophos AV for endpoint protection
+- **Network Segmentation:** Cisco managed switches with VLAN configuration separating servers, management, endpoints, and guest networks
 - **Connectivity:** Fiber (Primary) with RF backup for redundancy
 - **External Connectivity:** DHCP-based with DSL drop configuration
 
 ### 6.2 Access Control
 - Principle of least privilege for all system access
-- Strong password requirements (minimum 12 characters, complexity rules)
-- Multi-factor authentication for critical systems
-- Regular access reviews (quarterly)
+- Authentication via Active Directory for corporate systems; AD service accounts reviewed quarterly
+- Strong password requirements (minimum 12 characters, complexity rules) and account lockout thresholds
+- Multi-factor authentication for critical systems and administrative accounts (including Sophos and AD administrators)
+- Regular access reviews (quarterly) and AD group membership audits
 
 ### 6.3 Data Protection
-- Encryption for data at rest and in transit
-- Regular backups with offline storage capability
+- Encryption for data at rest and in transit for sensitive data
+- Regular backups with offline storage capability; AD System State backups performed and retained per backup policy
 - Folder-based backup structure: /sankei-india.com/Backup/user/sankei-india.com
 
 ### 6.4 Endpoint Protection
-- Sophos endpoint protection on all workstations
-- Regular malware scans and real-time protection enabled
-- Patch management program for all systems
+- Sophos endpoint protection deployed to approximately 90 PCs/endpoints/systems; centralized management and alerting enabled
+- Regular malware scans and real-time protection enabled via Sophos console
+- Patch management program for endpoints and servers; endpoint patch status reviewed weekly
 
 ---
 
@@ -140,14 +143,16 @@ Refer to: **SOP-Incident-Response (Document ID: SIP-IR-003)**
 
 | System | RPO | RTO | Backup Method |
 |--------|-----|-----|---------------|
-| Web Application | 4 hours | 2 hours | Server-based backup |
+| Public Web Server (sankei-india.com) | 1 hour | 1 hour | Server-based backup + offsite copy (priority restore) |
+| Web Application (App Server) | 4 hours | 2 hours | Server-based backup |
 | File Server | 24 hours | 4 hours | Folder-based backup to Server Closet |
+| Active Directory | 1 hour | 2 hours | AD System State + full server backup |
 | Email/Communication | 4 hours | 1 hour | Cloud + local backup |
 
 ### 9.2 Alternative Operations
 - Secondary RF connectivity available for network failover
 - Backup server in Server Closet for critical data restoration
-- Manual procedures documented for system outages
+- Manual procedures documented for system outages, including steps to restore AD authentication and public web service
 
 ---
 

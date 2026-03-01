@@ -16,7 +16,7 @@ Provide standardized steps to detect, assess, contain, eradicate, recover from, 
 
 ## 2. SCOPE
 
-Applies to all information security incidents affecting on-premises infrastructure (3 dedicated servers, Sophos perimeter), network connectivity (Fiber primary, RF secondary), web applications, and backups.
+Applies to all information security incidents affecting on-premises infrastructure (3 dedicated servers, Sophos perimeter), network connectivity (Fiber primary, RF secondary), web application, Active Directory compromises, and backups for sankei-india.com. Covers incidents involving ~90 endpoints protected by Sophos.
 
 ---
 
@@ -36,28 +36,26 @@ Refer to CSIRT severity matrix in Security Organization Structure. Classify inci
 ## 5. RESPONSE PHASES
 
 1. Detection & Reporting
-   - Monitor Sophos alerts, server logs, and network devices.
-   - Create incident record with timestamp, reporter, affected systems.
+   - Monitor Sophos Central alerts (endpoint and firewall), AD logs (domain controllers), and server logs for indicators of compromise.
+   - Create incident record with timestamp, reporter, affected systems, and whether AD accounts are involved.
 
 2. Triage & Assessment (within response SLA)
-   - Gather initial facts: affected hostnames/IPs, user accounts, services, scope (web app, file server, backup).
-   - Determine severity and assign CSIRT members.
+   - Gather initial facts: affected hostnames/IPs (approx. 90 endpoints inventory), user accounts, services (public web server, file shares), scope (web app, file server, backup).
+   - Check AD logs for suspicious logins, account lockouts, and privilege escalations.
 
 3. Containment
-   - Short-term: isolate affected host(s)/segment via Sophos or switch port shutdown.
-   - Long-term: apply ACLs, block malicious IPs, disable compromised accounts.
+   - Use Sophos to isolate infected endpoints remotely; block malicious IPs at Sophos firewall; if needed, disable affected AD accounts or force password reset.
+   - For servers, isolate via switch port shutdown on Cisco managed switches or Sophos firewall rules.
 
 4. Eradication
-   - Remove malware, close exploited ports, apply patches, reset credentials.
-   - Coordinate with Sophos Support for advanced remediation.
+   - Run Sophos full scan and remediation on affected endpoints; remove malicious artifacts; rebuild endpoints where necessary.
+   - Reset credentials for compromised AD accounts and review group memberships.
 
 5. Recovery
-   - Restore systems from verified backups (Server Closet backups or folder-based backups in /sankei-india.com/Backup/) following SOP-Backup-Recovery.
-   - Validate application functionality and integrity.
+   - Restore from verified backups (Server Closet or folder-based backups) using SOP-Backup-Recovery. Ensure AD System State restoration procedures are followed when AD is impacted.
 
 6. Lessons Learned & Closure
-   - Prepare final incident report, include timeline, root cause, actions taken, and remediation plan.
-   - Update policies and run follow-up training if needed.
+   - Prepare final incident report including Sophos alert logs, AD forensic findings, restore timeline, and recommended mitigations.
 
 ---
 
@@ -67,6 +65,8 @@ Refer to CSIRT severity matrix in Security Organization Structure. Classify inci
 - Collect log files from Sophos, servers, and switches; retain copies in a secure evidence store.
 - Label evidence with chain-of-custody information.
 - For severe incidents consider engaging external forensics vendor.
+- Collect Sophos Central logs, AD Security/Event logs from domain controllers, IIS/web server logs for public web server, and backup logs.
+- Preserve image of affected endpoints if possible; otherwise capture Sophos telemetry and event timelines.
 
 ---
 
@@ -80,9 +80,9 @@ Refer to CSIRT severity matrix in Security Organization Structure. Classify inci
 
 ## 8. ROLES & RESPONSIBILITIES
 
-- Reporter: Notify IT, provide initial details.
-- IT Operations: Initial triage, containment actions, log collection.
-- Technical Lead: Lead technical investigation and remediation.
+- Reporter: Notify IT, provide initial details, note if user account(s) are involved.
+- IT Operations: Initial triage, AD check, Sophos isolation actions, containment.
+- Technical Lead: Lead technical investigation and remediation, coordinate with Sophos support if needed.
 - Communications Lead: Prepare messages and coordinate external notifications.
 - CSIRT Commander: Approve actions, escalate to Management.
 
