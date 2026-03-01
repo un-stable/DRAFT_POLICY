@@ -105,11 +105,18 @@ This organization maintains compliance with:
 | Vulnerability Assessment | Quarterly | IT Department |
 | Risk Assessment | Annual | Management + IT |
 
-### 7.2 Self-Assessment Status
+### 7.2 JAMA Cybersecurity Checklist
 
-- [ ] JAMA Cybersecurity Checklist completed
-- [ ] Gap analysis documented
-- [ ] Remediation plan created
+The detailed JAMA self-assessment, item-by-item scoring, gap analysis, remediation tracker, and evidence index are maintained in the following subdocument:
+
+> **📄 Subdocument: [01.1_JAMA_Cybersecurity_Checklist.md](01.1_JAMA_Cybersecurity_Checklist.md)**  
+> **Document ID:** SIP-JAMA-01.1
+
+### 7.3 Self-Assessment Status
+
+- [ ] JAMA Cybersecurity Checklist completed (see SIP-JAMA-01.1)
+- [ ] Gap analysis documented (see SIP-JAMA-01.1, Section 5)
+- [ ] Remediation plan created (see SIP-JAMA-01.1, Section 5)
 - [ ] Management review conducted
 
 ---
