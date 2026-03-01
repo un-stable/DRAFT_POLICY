@@ -24,6 +24,21 @@ Applies to all information security incidents affecting on-premises infrastructu
 
 Refer to CSIRT severity matrix in Security Organization Structure. Classify incidents as Critical (P1), High (P2), Medium (P3), Low (P4).
 
+### CSIRT Severity Matrix
+
+| Severity | Criteria (Impact / Scope) | Examples (Sankei India) | Response SLA (Ack / Contain) | Immediate Actions | Escalation / Notify |
+|----------|---------------------------|--------------------------|-------------------------------|-------------------|---------------------|
+| P1 — Critical | Major business outage, confirmed data breach, AD compromise affecting domain, public web defacement, ransomware encrypting production data | Public web offline, AD domain compromise, file server encrypted, company-wide outage (~affects many of ~90 endpoints or 3 servers) | Ack: 15 min / Contain: 30 min | Activate CSIRT, isolate affected hosts (Sophos isolate + switch-port shutdown), block malicious IPs on Sophos, disable compromised AD accounts, engage Management/Legal | MD + CSIRT Commander + External reporting as required (CERT-In, customers) |
+| P2 — High | Significant degradation or targeted compromise with potential data loss, multi-user impact but limited to subset of systems | Targeted compromise of file server, persistent malware on multiple endpoints, suspected data exfiltration from web app | Ack: 1 hr / Contain: 2 hrs | Isolate affected endpoints, apply firewall blocks, collect logs (Sophos, AD, IIS), start forensic capture, schedule restore from backup if needed | CSIRT Commander, Technical Lead, Vendor Support (Sophos/ISP) |
+| P3 — Medium | Localized incident with limited business impact; single system or user affected | Single endpoint infected, phishing causing credential exposure for one user, non-critical service disruption | Ack: 4 hrs / Contain: 8 hrs | Quarantine endpoint via Sophos, reset user credentials, review AD logs, remediate and monitor | IT Ops + Technical Lead |
+| P4 — Low | Low-risk events or informational issues with no business impact | Malware detected and removed automatically, routine suspicious scan, low-severity policy violations | Ack: 24 hrs / Contain: 72 hrs | Log incident, apply standard remediation, update detection rules if needed | IT Ops |
+
+Notes:
+- For P1/P2 preserve evidence (memory/image if feasible), collect Sophos telemetry, AD Security logs, IIS logs, switch logs, and backup logs; document chain-of-custody.
+- Map SLA times to real-world staffing and after-hours contact lists; maintain 24×7 on-call for P1.
+- Use this matrix to drive incident severity field in Incident Tracker and automated alert rules in Sophos Central.
+- Review and adjust severity assignments during post-incident review; update remediation tracker with owners/timelines.
+
 ---
 
 ## 4. REPORTING
